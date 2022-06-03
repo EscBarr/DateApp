@@ -1,0 +1,12 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "О приложении";
+    if (HttpContext.Session.GetString("roles") == "Admin")
+    {
+        Layout = "_LayoutAdmin";
+    }
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Сервис для размещения своих анкет и поиска пары</p>

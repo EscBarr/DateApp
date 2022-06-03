@@ -1,0 +1,14 @@
+﻿@page
+@model DateApp.Pages.CheckSendedLikesModel
+@{
+}
+<div class="center">
+    <h1>Список пользователей ответивших на ваши заявки</h1>
+</div>
+
+<partial name="_UserListNoButton" model="Model.Users"></partial>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>

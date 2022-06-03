@@ -1,0 +1,60 @@
+﻿@page
+@model DateApp.Pages.AllUsersModel
+@{
+    ViewData["Title"] = "DateApp";
+    Layout = "_LayoutAdmin";
+}
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Введите имя для поиска..">
+
+<table id="myTable">
+    <tr class="header">
+        <th style="width:fit-content;">Имя</th>
+        <th style="width:fit-content;">Дата рождения</th>
+        <th style="width:fit-content;">Город</th>
+        <th style="width:fit-content;">Удалить</th>
+    </tr>
+    @foreach (var User in Model.Users)
+    {
+        <tr>
+            <td>@User.Name @User.Surname @User.Patronymic</td>
+            <td>@User.Birthday.Value.ToString("dd/MM/yyyy")</td>
+            <td>@User.Adress</td>
+            <td>
+                <form method="post">
+                    <button asp-page-handler="delete" asp-route-id="@User.Id" class="btn custom btn-danger remove-item">Удалить</button>
+                </form>
+            </td>
+        </tr>
+
+    }
+</table>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+<script>
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

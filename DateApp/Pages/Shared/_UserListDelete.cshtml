@@ -1,0 +1,64 @@
+﻿@using DateApp.EntityContext
+
+@model IList<User>
+
+@*@foreach (var User in Model.Users)
+{
+    <div class="row">
+        <div class="page_block_big col-2">
+            <img id="ImgPreview" style='width:auto; height:auto;' src="data:image/jpeg;base64,@(Convert.ToBase64String(User.Avatar))" ,alt="Аватар" />
+        </div>
+        <i class="fa fa-heart"></i>
+    </div>
+}*@
+
+<div class="wrapper">
+    <div class="glider-contain">
+        <div class="glider">
+            @foreach (var User in Model)
+            {
+                <div>
+                    <img id="ImgPreview" src="data:image/jpeg;base64,@(Convert.ToBase64String(User.Avatar))" ,alt="Аватар" />
+                    <form method="post">
+                        <div class="center">
+
+                            <div style="text-align: center; vertical-align: middle; background-color:#edeef0; color:#0000;">
+                                <a asp-page="./Profile" asp-route-id="@User.Id" style="font-size: 24px;">@User.Name (@AgeInYears(User.Birthday.Value))</a>
+                            </div>
+                            <button type="submit" asp-page="PairSearch" asp-page-handler="Like" asp-route-id="@User.Id"> <i class="fa fa-heart"></i> </button>
+                            <button type="submit" asp-page="PairSearch" asp-page-handler="Dislike" asp-route-id="@User.Id"> <i class="fa fa-times"></i> </button>
+                        </div>
+                    </form>
+                </div>
+            }
+        </div>
+        <button aria-label="Previous" class="glider-prev">«</button>
+        <button aria-label="Next" class="glider-next">»</button>
+        <div role="tablist" class="dots"></div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="~/lib/glider/glider.min.js"></script>
+<script>
+    new Glider(document.querySelector('.glider'), {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        draggable: true,
+        dots: '.dots',
+        arrows: {
+            prev: '.glider-prev',
+            next: '.glider-next'
+        }
+    });
+</script>
+
+@functions {
+    public int AgeInYears(DateTime Birthday)
+    {
+        var Now = DateTime.Now;
+        TimeSpan Dif = Now - Birthday;
+
+        return Convert.ToInt32((Dif.TotalDays / 365.25));
+    }
+}

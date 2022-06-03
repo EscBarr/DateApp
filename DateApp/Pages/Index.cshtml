@@ -1,0 +1,52 @@
+﻿@page
+
+@model LoginModel
+@{
+    ViewData["Title"] = "DateApp";
+    Layout = "_Layout1";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DateApp</title>
+    <link rel="stylesheet" href="~/css/Sketchy.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DateApp.styles.css" asp-append-version="true" />
+</head>
+
+<div class="parent" style="max-width: auto !important;">
+    <div class="page_block">
+        <div>
+            <h1>Авторизация</h1>
+        </div>
+        <div>
+            <form asp-page-handler="Login" method="post">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div style="padding: 10px">
+                    <label asp-for="Email"></label><br />
+                    <input asp-for="Email" />
+                    <span asp-validation-for="Email"></span>
+                </div>
+                <div style="padding: 10px">
+                    <label asp-for="Password"></label><br />
+                    <input asp-for="Password" />
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <div>
+                    <div class='child inline-block-child' style="padding: 10px">
+                        <input type="submit" value="Войти" />
+                    </div>
+                    <div class='child inline-block-child'>
+                        <a asp-page="/Register">Зарегистрироваться</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

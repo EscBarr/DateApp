@@ -1,0 +1,208 @@
+﻿@page "{handler?}"
+@model DateApp.Pages.PersonalDataModel
+@{
+}
+@using DateApp.EntityContext;
+<h1>Заполните информацию о себе</h1>
+
+<div>
+    <form asp-page-handler="Edit" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="row">
+            <div class="col page_block">
+                <div class="parent_left">
+                    <label asp-for="image" class="control-label"></label>
+                    <img id="ImgPreview" style='width:200px; height:200px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Avatar))" ,alt="Аватар" />
+                    <input asp-for="image" class="form-control" onchange="ImgPre(this)" />
+                </div>
+                <div>
+                    <label asp-for="Name"></label><br />
+                    <input asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+                <div>
+                    <label asp-for="Surname"></label><br />
+                    <input asp-for="Surname" />
+                    <span asp-validation-for="Surname"></span>
+                </div>
+                <div>
+                    <label asp-for="Patronymic"></label><br />
+                    <input asp-for="Patronymic" />
+                    <span asp-validation-for="Patronymic"></span>
+                </div>
+                <div>
+                    <label asp-for="Gender"></label><br />
+                    <select name="Gender" asp-for="Gender">
+                        <option value="">--Укажите пол--</option>
+                        <option value="0">Мужчина</option>
+                        <option value="1">Женщина</option>
+                    </select>
+                </div>
+                <div>
+                    <label asp-for="ContactPhone"></label><br />
+                    <input asp-for="ContactPhone" id="online_phone" type="tel" pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" placeholder="+7(___)___-__-__">
+                </div>
+            </div>
+            <div class="col page_block">
+                <div>
+                    <label asp-for="Birthday"></label><br />
+                    <input type="date" asp-for="Birthday" />
+                    <span asp-validation-for="Birthday"></span>
+                </div>
+                <div>
+                    <label asp-for="ReligionType"></label><br />
+                    <select name="ReligionType" asp-for="ReligionType">
+                        <option>Атеизм</option>
+                        <option>Иудаизм</option>
+                        <option>Православие</option>
+                        <option>Католицизм</option>
+                        <option>Протестантизм</option>
+                        <option>Ислам</option>
+                        <option>Буддизм</option>
+                        <option>Конфуцианство</option>
+                        <option>Светский гуманизм</option>
+                        <option>Пастафарианство</option>
+                    </select>
+                    @* <input asp-for="ReligionType" list="Religion" placeholder="Не выбрано" />
+                    <datalist id="Religion">
+                    <option>Иудаизм</option>
+                    <option>Православие</option>
+                    <option>Католицизм</option>
+                    <option>Протестантизм</option>
+                    <option>Ислам</option>
+                    <option>Буддизм</option>
+                    <option>Конфуцианство</option>
+                    <option>Светский гуманизм</option>
+                    <option>Пастафарианство</option>
+                    </datalist>*@
+                </div>
+                <div>
+                    <label asp-for="Education"></label><br />
+                    <select name="Education" asp-items="Model._educations" asp-for="Education"></select>
+                    <span asp-validation-for="Education"></span>
+                </div>
+                <div>
+                    <label asp-for="Height"></label><br />
+                    <input asp-for="Height" />
+                    <span asp-validation-for="Height"></span>
+                </div>
+                <div>
+                    <label asp-for="Weight"></label><br />
+                    <input asp-for="Weight" />
+                    <span asp-validation-for="Weight"></span>
+                </div>
+                <div>
+                    @* <label asp-for="EyeColor"></label><br />
+                    <input asp-for="EyeColor" />
+                    <span asp-validation-for="EyeColor"></span>*@
+                    <label asp-for="EyeColor"></label><br />
+                    <select name="EyeColor" asp-for="EyeColor">
+                        <option value="Синий">Синий</option>
+                        <option value="Голубой">Голубой</option>
+                        <option value="Серый">Серый</option>
+                        <option value="Зелёный">Зелёный</option>
+                        <option value="Буро-жёлто-зелёный">Буро-жёлто-зелёный</option>
+                        <option value="Жёлтый">Жёлтый</option>
+                        <option value="Карий">Карий</option>
+                        <option value="Чёрный">Чёрный</option>
+                    </select>
+                    <span asp-validation-for="EyeColor"></span>
+                </div>
+                <div>
+                    <label asp-for="Adress"></label><br />
+                    <input asp-for="Adress" />
+                    <span asp-validation-for="Adress"></span>
+                </div>
+                <div>
+                    <label asp-for="OpinionOnSmoking"></label><br />
+                    <select name="OpinionOnSmoking" asp-for="OpinionOnSmoking">
+                        <option>Не указано</option>
+                        <option>Резко негативное</option>
+                        <option>Негативное</option>
+                        <option>Компромиссное</option>
+                        <option>Нейтральное</option>
+                        <option>Позитивное</option>
+                    </select>
+                    <span asp-validation-for="OpinionOnSmoking"></span>
+                </div>
+                <div>
+                    <label asp-for="OpinionOnAlcohol"></label><br />
+                    <select name="OpinionOnAlcohol" asp-for="OpinionOnAlcohol">
+                        <option>Не указано</option>
+                        <option>Резко негативное</option>
+                        <option>Негативное</option>
+                        <option>Компромиссное</option>
+                        <option>Нейтральное</option>
+                        <option>Позитивное</option>
+                    </select>
+                    <span asp-validation-for="OpinionOnAlcohol"></span>
+                </div>
+                <div>
+
+                    <input type="checkbox" asp-for="IsParticipating">
+                    <label asp-for="IsParticipating"></label><br />
+
+                </div>
+            </div>
+            <div class="col page_block">
+                <div>
+                    <label asp-for="AboutMe"></label><br />
+                    <textarea asp-for="AboutMe" style="width:100%;height:max-content"></textarea>
+                    <span asp-validation-for="AboutMe"></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Сохранить изменения" />
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script src=~/lib/jquery/dist/jquery.min.js></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function ImgPre(input) {
+            if (input.files[0]) {
+                var uploadimg = new FileReader();
+                uploadimg.onload = function (displayimg) {
+                    $("#ImgPreview").attr('src', displayimg.target.result);
+                }
+                uploadimg.readAsDataURL(input.files[0]);
+            }
+        }
+        function setCursorPosition(pos, e) {
+            e.focus();
+            if (e.setSelectionRange) e.setSelectionRange(pos, pos);
+            else if (e.createTextRange) {
+                var range = e.createTextRange();
+                range.collapse(true);
+                range.moveEnd("character", pos);
+                range.moveStart("character", pos);
+                range.select()
+            }
+        }
+        function mask(e) {
+            //console.log('mask',e);
+            var matrix = this.placeholder,// .defaultValue
+                i = 0,
+                def = matrix.replace(/\D/g, ""),
+                val = this.value.replace(/\D/g, "");
+            def.length >= val.length && (val = def);
+            matrix = matrix.replace(/[_\d]/g, function (a) {
+                return val.charAt(i++) || "_"
+            });
+            this.value = matrix;
+            i = matrix.lastIndexOf(val.substr(-1));
+            i < matrix.length && matrix != this.placeholder ? i++ : i = matrix.indexOf("_");
+            setCursorPosition(i, this)
+        }
+        window.addEventListener("DOMContentLoaded", function () {
+            var input = document.querySelector("#online_phone");
+            input.addEventListener("input", mask, false);
+            input.focus();
+            setCursorPosition(3, input);
+        });
+    </script>
+}

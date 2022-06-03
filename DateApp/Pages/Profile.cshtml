@@ -1,0 +1,170 @@
+﻿@page
+@model DateApp.Pages.ProfileModel
+@{
+}
+
+<h1>Профиль</h1>
+<div class="row">
+    <div class="col-2">
+        <div>
+            <img id="ImgPreview" style='width:auto; height:auto;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.CurrentUser.Avatar))" ,alt="Аватар" />
+            <a asp-page="./PersonalData">Изменить свои данные</a>
+        </div>
+    </div>
+    <div class="col page_block">
+        <div>
+            <h2>@Model.CurrentUser.Name @Model.CurrentUser.Surname @Model.CurrentUser.Patronymic</h2>
+        </div>
+
+        <div>
+            <div class="child inline-block-child">
+                <label>День рождения:</label>
+            </div>
+            <div class='child inline-block-child'>
+                <p>@Model.CurrentUser.Birthday.Value.ToString("dd/MM/yyyy") (@AgeInYears(Model.CurrentUser.Birthday.Value))</p>
+            </div>
+        </div>
+        <div>
+            <div class="child inline-block-child">
+                <label>Пол:</label>
+            </div>
+            <div class='child inline-block-child'>
+                <p>@ConvertToString(Model.CurrentUser.Gender.Value)</p>
+            </div>
+        </div>
+        <div>
+            <div class="child inline-block-child">
+                <label>Город:</label>
+            </div>
+            <div class='child inline-block-child'>
+                <p>@Model.CurrentUser.Adress</p>
+            </div>
+        </div>
+        <div>
+            <div class="child inline-block-child">
+                <label>Мировоззрение:</label>
+            </div>
+            <div class='child inline-block-child'>
+                <p>@Model.CurrentUser.ReligionType</p>
+            </div>
+        </div>
+        <div>
+            <div class="child inline-block-child">
+                <label>Образование:</label>
+            </div>
+            <div class='child inline-block-child'>
+                <p>@Model.Education</p>
+            </div>
+        </div>
+        <div>
+            <div class="child inline-block-child">
+                <label>Рост:</label>
+            </div>
+            <div class='child inline-block-child'>
+                <p>@Model.CurrentUser.Height</p>
+            </div>
+        </div>
+        <div>
+            <div class="child inline-block-child">
+                <label>Вес:</label>
+            </div>
+            <div class='child inline-block-child'>
+                <p>@Model.CurrentUser.Weight</p>
+            </div>
+        </div>
+        <div>
+            <div class="child inline-block-child">
+                <label>Цвет глаз:</label>
+            </div>
+            <div class='child inline-block-child'>
+                <p>@Model.CurrentUser.EyeColor</p>
+            </div>
+        </div>
+        <div>
+            <div class="child inline-block-child">
+                <label>Отношение к курению:</label>
+            </div>
+            <div class='child inline-block-child'>
+                <p>@Model.CurrentUser.OpinionOnSmoking</p>
+            </div>
+        </div>
+        <div>
+            <div class="child inline-block-child">
+                <label>Отношение к алкоголю:</label>
+            </div>
+            <div class='child inline-block-child'>
+                <p>@Model.CurrentUser.OpinionOnAlcohol</p>
+            </div>
+        </div>
+        <div>
+            @if (PhoneDiplayCheck())
+            {
+                <button type="button" class="collapsible">Показать контактные данные</button>
+                <div class="content">
+                    <div class="child inline-block-child">
+                        <label>Контактный телефон:</label>
+                    </div>
+                    <div class='child inline-block-child'>
+                        <p>@Model.CurrentUser.ContactPhone</p>
+                    </div>
+                    <div>
+                        <div class="child inline-block-child">
+                            <label>Почта:</label>
+                        </div>
+                        <div class='child inline-block-child'>
+                            <p>@Model.CurrentUser.Email</p>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col page_block">
+        <label>О себе:</label>
+        <textarea readonly style="width:100%;height:max-content">@Model.CurrentUser.AboutMe</textarea>
+    </div>
+</div>
+
+@functions {
+    public string ConvertToString(bool? Type)
+    {
+        switch (Type)
+        {
+            case false:
+                return "Мужской";
+            case true:
+                return "Женский";
+        }
+        return "undefiend";
+    }
+    public int AgeInYears(DateTime Birthday)
+    {
+        var Now = DateTime.Now;
+        TimeSpan Dif = Now - Birthday;
+
+        return Convert.ToInt32((Dif.TotalDays / 365.25));
+    }
+    public bool PhoneDiplayCheck()
+    {
+        var id = HttpContext.Session.GetString("userId");
+        return id == Model.CurrentUser.Id.ToString() || (Model.CurrentUser.RecievedLikes.Contains(id) && Model.CurrentUser.SentLikes.Contains(id));
+    }
+    }
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>

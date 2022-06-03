@@ -1,0 +1,192 @@
+﻿@page
+@model DateApp.Pages.PairSearchModel
+@{
+}
+<div class="row">
+    <div class="col-3">
+        <form asp-page-handler="Search" method="post"
+              data-ajax="true"
+              data-ajax-update="#List"
+              data-ajax-mode="replace">
+            <div class="sidenav p-2">
+                <div>
+                    <button type="button" class="dropdown-btn">
+                        Возраст
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <label asp-for="AgeFrom"></label>
+                        <input asp-for="AgeFrom" />
+                        <span asp-validation-for="AgeFrom"></span>
+                        <label asp-for="AgeTo"></label>
+                        <input asp-for="AgeTo" />
+                        <span asp-validation-for="AgeTo"></span>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="dropdown-btn">
+                        Мировоззрение
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <label asp-for="ReligionType"></label><br />
+                        <select name="ReligionType" asp-for="ReligionType">
+                            <option>Не выбрано</option>
+                            <option>Атеизм</option>
+                            <option>Иудаизм</option>
+                            <option>Православие</option>
+                            <option>Католицизм</option>
+                            <option>Протестантизм</option>
+                            <option>Ислам</option>
+                            <option>Буддизм</option>
+                            <option>Конфуцианство</option>
+                            <option>Светский гуманизм</option>
+                            <option>Пастафарианство</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="dropdown-btn">
+                        Город
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <label asp-for="Adress"></label><br />
+                        <input asp-for="Adress" />
+                        <span asp-validation-for="Adress"></span>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="dropdown-btn">
+                        Образование
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <label asp-for="Education"></label><br />
+                        <select name="Education" asp-items="Model._educations" asp-for="Education"></select>
+                        <span asp-validation-for="Education"></span>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="dropdown-btn">
+                        Рост (более чем)
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <label asp-for="Height"></label><br />
+                        <input asp-for="Height" />
+                        <span asp-validation-for="Height"></span>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="dropdown-btn">
+                        Вес (менее чем)
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <label asp-for="Weight"></label><br />
+                        <input asp-for="Weight" />
+                        <span asp-validation-for="Weight"></span>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="dropdown-btn">
+                        Цвет глаз
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <label asp-for="EyeColor"></label><br />
+                        <select name="EyeColor" asp-for="EyeColor">
+                            <option value="Не выбрано">Не выбрано</option>
+                            <option value="Синий">Синий</option>
+                            <option value="Голубой">Голубой</option>
+                            <option value="Серый">Серый</option>
+                            <option value="Зелёный">Зелёный</option>
+                            <option value="Буро-жёлто-зелёный">Буро-жёлто-зелёный</option>
+                            <option value="Жёлтый">Жёлтый</option>
+                            <option value="Карий">Карий</option>
+                            <option value="Чёрный">Чёрный</option>
+                        </select>
+                        <span asp-validation-for="EyeColor"></span>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="dropdown-btn">
+                        Отношение к курению
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <label asp-for="OpinionOnSmoking"></label><br />
+                        <select name="OpinionOnSmoking" asp-for="OpinionOnSmoking">
+                            <option>Не выбрано</option>
+                            <option>Резко негативное</option>
+                            <option>Негативное</option>
+                            <option>Компромиссное</option>
+                            <option>Нейтральное</option>
+                            <option>Позитивное</option>
+                        </select>
+                        <span asp-validation-for="OpinionOnSmoking"></span>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="dropdown-btn">
+                        Отношение к алкоголю
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <label asp-for="OpinionOnAlcohol"></label><br />
+                        <select name="OpinionOnAlcohol" asp-for="OpinionOnAlcohol">
+                            <option>Не выбрано</option>
+                            <option>Резко негативное</option>
+                            <option>Негативное</option>
+                            <option>Компромиссное</option>
+                            <option>Нейтральное</option>
+                            <option>Позитивное</option>
+                        </select>
+                        <span asp-validation-for="OpinionOnAlcohol"></span>
+                    </div>
+                </div>
+                <input type="submit" value="Применить фильтр" />
+            </div>
+        </form>
+    </div>
+
+    <div class="col" id="List">
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+</script>
+@*<script>
+    $(document).ready(function(){
+
+    $.ajax({
+    url: '/PairSearch?handler=Search',
+    type: "POST",
+    beforeSend: (xhr) => {
+    },
+    success: (data) => {
+    document.getElementById('List').innerHTML = data;
+    }
+    });
+    </script>*@

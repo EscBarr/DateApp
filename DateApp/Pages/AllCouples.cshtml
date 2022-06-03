@@ -1,0 +1,36 @@
+﻿@page
+@model DateApp.Pages.AllCouplesModel
+@{
+    ViewData["Title"] = "DateApp";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>Отчет по парам</h1>
+
+<table id="myTable">
+    <tr class="header">
+        <th style="width:fit-content;">Первый пользователь</th>
+        <th style="width:fit-content;">Второй пользователь</th>
+        <th style="width:fit-content;">Дата</th>
+        <th style="width:fit-content;">Удалить</th>
+    </tr>
+    @foreach (var User in Model.Users)
+    {
+        <tr>
+            <td>@User.Item1.Name @User.Item1.Surname @User.Item1.Patronymic</td>
+            <td>@User.Item2.Name @User.Item2.Surname @User.Item2.Patronymic</td>
+            <td>@User.Item3.ToString("dd/MM/yyyy")</td>
+            <td>
+                <form method="post">
+                    <button asp-page-handler="delete" asp-route-id="@User.Item1.Id,User.Item2.Id" class="btn custom btn-danger remove-item">Удалить</button>
+                </form>
+            </td>
+        </tr>
+
+    }
+</table>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
