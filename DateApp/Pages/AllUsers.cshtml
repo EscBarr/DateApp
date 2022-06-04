@@ -14,8 +14,10 @@
         <th style="width:fit-content;">Город</th>
         <th style="width:fit-content;">Удалить</th>
     </tr>
-    @foreach (var User in Model.Users)
+    @if(Model.Users != null)
     {
+        foreach (var User in Model.Users)
+        {
         <tr>
             <td>@User.Name @User.Surname @User.Patronymic</td>
             <td>@User.Birthday.Value.ToString("dd/MM/yyyy")</td>
@@ -27,7 +29,9 @@
             </td>
         </tr>
 
+        }
     }
+
 </table>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

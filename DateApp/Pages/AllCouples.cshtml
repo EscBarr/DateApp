@@ -14,7 +14,9 @@
         <th style="width:fit-content;">Дата</th>
         <th style="width:fit-content;">Удалить</th>
     </tr>
-    @foreach (var User in Model.Users)
+    @if(Model.Users != null)
+    {
+        foreach (var User in Model.Users)
     {
         <tr>
             <td>@User.Item1.Name @User.Item1.Surname @User.Item1.Patronymic</td>
@@ -22,12 +24,14 @@
             <td>@User.Item3.ToString("dd/MM/yyyy")</td>
             <td>
                 <form method="post">
-                    <button asp-page-handler="delete" asp-route-id="@User.Item1.Id,User.Item2.Id" class="btn custom btn-danger remove-item">Удалить</button>
+                    <button asp-page-handler="delete" asp-route-Firstid="@User.Item1.Id" asp-route-Secondid = "@User.Item2.Id" class="btn custom btn-danger remove-item">Удалить</button>
                 </form>
             </td>
         </tr>
 
     }
+    }
+    
 </table>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

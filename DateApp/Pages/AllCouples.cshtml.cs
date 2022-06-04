@@ -38,10 +38,11 @@ namespace DateApp.Pages
         public async Task OnPostDelete(int Firstid, int Secondid)
         {
             var Couple = await _db.User_Couples.FirstOrDefaultAsync(x => x.FirstUserId == Firstid && x.SecondUserId == Secondid);
+           
 
             if (Couple != null)
             {
-                _db.User_Couples.Remove(Couple);
+                _ = _db.User_Couples.Remove(Couple);
                 await _db.SaveChangesAsync();
             }
         }
