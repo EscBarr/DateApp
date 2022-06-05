@@ -1,0 +1,73 @@
+﻿@page
+@model DateApp.Pages.ControlAdminModel
+@{
+    ViewData["Title"] = "DateApp";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>Управление администраторами</h1>
+<button class="btn btn-success" style="float: right;" data-bs-toggle ="modal" data-bs-target="#details-modal">Добавить</button>
+<table id="myTable">
+    <tr class="header">
+        <th style="width:fit-content;">Почта</th>
+        <th style="width:fit-content;">Удалить</th>
+    </tr>
+  @if(Model.Users != null)
+    {
+        foreach (var User in Model.Users)
+        {
+        <tr>
+            <td>@User.Email</td>
+            <td>
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <button asp-page-handler="delete" asp-route-id="@User.Id" class="btn custom btn-danger remove-item">Удалить</button>
+                </form>
+            </td>
+        </tr>
+
+        }
+    }
+    
+</table>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="details-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Добавление администратора</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          <form asp-page-handler="Add" method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div>
+                 <label asp-for="Email"></label><br />
+                 <input asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+             <div>
+                <label asp-for="Password"></label><br />
+                <input asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+             </div>
+             <div>
+                <label asp-for="PasswordConfirm"></label><br />
+                <input asp-for="PasswordConfirm" />
+                <span asp-validation-for="PasswordConfirm"></span>
+             </div>
+            <div>
+            <input type="submit" value="Добавить" />
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>

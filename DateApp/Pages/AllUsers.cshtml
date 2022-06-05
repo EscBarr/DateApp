@@ -6,17 +6,17 @@
 }
 
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Введите имя для поиска..">
-
-<table id="myTable">
+@if (Model.Users != null && Model.Users.Count > 0)
+{
+    <table id="myTable">
     <tr class="header">
         <th style="width:fit-content;">Имя</th>
         <th style="width:fit-content;">Дата рождения</th>
         <th style="width:fit-content;">Город</th>
         <th style="width:fit-content;">Удалить</th>
     </tr>
-    @if(Model.Users != null)
-    {
-        foreach (var User in Model.Users)
+  
+        @foreach (var User in Model.Users)
         {
         <tr>
             <td>@User.Name @User.Surname @User.Patronymic</td>
@@ -30,9 +30,14 @@
         </tr>
 
         }
-    }
+    
 
-</table>
+    </table>
+}
+else
+{
+    <p>Пользователи отсутствуют</p>
+}
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

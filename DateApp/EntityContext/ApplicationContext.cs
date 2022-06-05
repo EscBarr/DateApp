@@ -9,8 +9,8 @@ namespace DateApp.EntityContext
         //public DbSet<UserPreferences> Users_Preferences { get; set; }
         public DbSet<EducationDegrees> Educations { get; set; }
 
-        public DbSet<AllServices> ListAllServices { get; set; }
-        public DbSet<CompletedServices> CompletedServices { get; set; }
+        //public DbSet<AllServices> ListAllServices { get; set; }
+        //public DbSet<CompletedServices> CompletedServices { get; set; }
         public DbSet<Couples> User_Couples { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
@@ -31,16 +31,19 @@ namespace DateApp.EntityContext
             //modelBuilder.Entity<UserPreferences>()
             //   .HasIndex(up => new { up.UserId })
             //   .IsUnique();
-            modelBuilder.Entity<CompletedServices>()
-               .HasIndex(Cs => new { Cs.UserId })
-            .IsUnique();
+            //modelBuilder.Entity<CompletedServices>()
+            //   .HasIndex(Cs => new { Cs.UserId })
+            //.IsUnique();
             modelBuilder.Entity<Couples>()
               .HasKey(C => new { C.FirstUserId, C.SecondUserId });
 
-            modelBuilder.Entity<CompletedServices>()
-              .HasIndex(C => new { C.Id })
-              .IsUnique();
-            modelBuilder.Entity<AllServices>().HasNoKey();
+            modelBuilder.Entity<EducationDegrees>()
+            .HasKey(C => new { C.Id});
+
+            //modelBuilder.Entity<CompletedServices>()
+            //  .HasIndex(C => new { C.Id })
+            //  .IsUnique();
+            //modelBuilder.Entity<AllServices>().HasNoKey();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

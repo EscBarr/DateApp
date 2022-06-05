@@ -11,8 +11,9 @@
         <i class="fa fa-heart"></i>
     </div>
 }*@
-
-<div class="wrapper">
+@if (Model != null && Model.Count > 0)
+{
+    <div class="wrapper">
     <div class="glider-contain">
         <div class="glider">
             @foreach (var User in Model)
@@ -36,7 +37,12 @@
         <button aria-label="Next" class="glider-next">»</button>
         <div role="tablist" class="dots"></div>
     </div>
-</div>
+    </div>
+}
+else
+{
+    <p>Нет пользователей, отправивших вам заявку</p>
+}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="~/lib/glider/glider.min.js"></script>

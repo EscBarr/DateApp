@@ -7,16 +7,17 @@
 
 <h1>Отчет по парам</h1>
 
-<table id="myTable">
+@if(Model.Users != null && Model.Users.Count > 0)
+{
+    <table id="myTable">
     <tr class="header">
         <th style="width:fit-content;">Первый пользователь</th>
         <th style="width:fit-content;">Второй пользователь</th>
         <th style="width:fit-content;">Дата</th>
         <th style="width:fit-content;">Удалить</th>
     </tr>
-    @if(Model.Users != null)
-    {
-        foreach (var User in Model.Users)
+  
+    @foreach (var User in Model.Users)
     {
         <tr>
             <td>@User.Item1.Name @User.Item1.Surname @User.Item1.Patronymic</td>
@@ -30,9 +31,15 @@
         </tr>
 
     }
-    }
     
-</table>
+    </table>
+
+}
+else
+{
+    <p>Пары отсутствуют</p>
+}
+
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
