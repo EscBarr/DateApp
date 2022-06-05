@@ -10,7 +10,7 @@
 
         public static void Add_DateCheck(ref string Query, string AgeTo, string AgeFrom)
         {
-            Query += "AND \"Birthday\" BETWEEN(current_date - '" + AgeTo + "  years'::interval) AND (current_date - '" + AgeFrom + " years'::interval)" + " ";
+            Query += "AND \"Birthday\" BETWEEN(current_date - '" + AgeFrom + "  years'::interval) AND (current_date - '" + AgeTo + " years'::interval)" + " ";
         }
 
         public static void Add_AdressCheck(ref string Query, string arg)
