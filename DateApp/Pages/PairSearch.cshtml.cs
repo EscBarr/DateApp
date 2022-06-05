@@ -132,7 +132,7 @@ namespace DateApp.Pages
             Check_For_Null_Fields(ref Current_Sql);
 
             Users = _db.Users.FromSqlRaw(Current_Sql).ToList();
-
+            var str = "te";
             //return new PartialViewResult
             //{
             //    ViewName = "_UserList",

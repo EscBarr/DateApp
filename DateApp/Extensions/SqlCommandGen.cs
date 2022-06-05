@@ -20,7 +20,7 @@
 
         public static void Add_ReligionCheck(ref string Query, string arg)
         {
-            Query += "AND \"Religion\" = '" + arg + "'" + " ";
+            Query += "AND \"ReligionType\" = '" + arg + "'" + " ";
         }
 
         public static void Add_EducationCheck(ref string Query, string arg)
