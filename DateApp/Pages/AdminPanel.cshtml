@@ -6,3 +6,66 @@
 }
 
 <h1>Главная страница администратора</h1>
+<button class="btn btn-success" style="float: right;" data-bs-toggle ="modal" data-bs-target="#Backup">Выполнить резервное копирование базы данных</button>
+<button class="btn btn-success" style="float: left;" data-bs-toggle ="modal" data-bs-target="#Restore">Выполнить восстановление базы данных</button>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="Backup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Создание резервной копии базы данных</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          <form asp-page-handler="Save" method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+@*             <div>
+                 <label asp-for="PgDump"></label><br />
+                 <input asp-for="PgDump" />
+            </div>*@
+            <div>
+                 <label asp-for="FileName"></label><br />
+                 <input asp-for="FileName" />
+            </div>
+            <div>
+            <input type="submit" value="Запуск" />
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="Restore">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Восстановление базы данных</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          <form asp-page-handler="Restore" method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+     @*        <div>
+                 <label asp-for="PgRest"></label><br />
+                 <input asp-for="PgRest" />
+            </div>*@
+            <div>
+                 <label asp-for="FileName"></label><br />
+                 <input asp-for="FileName" />
+            </div>
+            <div>
+            <input type="submit" value="Запуск" />
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>

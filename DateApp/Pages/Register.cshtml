@@ -1,6 +1,8 @@
 ﻿@page "{handler?}"
 @model DateApp.Pages.RegisterModel
 @{
+    ViewData["Title"] = "DateApp";
+    Layout = "_Layout1";
 }
 <h2>Регистрация нового пользователя</h2>
 <form asp-page-handler="Register" method="post">

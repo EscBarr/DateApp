@@ -8,7 +8,10 @@
     <div class="col-2">
         <div>
             <img id="ImgPreview" style='width:auto; height:auto;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.CurrentUser.Avatar))" ,alt="Аватар" />
-            <a asp-page="./PersonalData">Изменить свои данные</a>
+            @if(ChangeInformationCheck())
+            {
+               <a asp-page="./PersonalData">Изменить свои данные</a>
+            }
         </div>
     </div>
     <div class="col page_block">
@@ -149,6 +152,10 @@
     {
         var id = HttpContext.Session.GetString("userId");
         return id == Model.CurrentUser.Id.ToString() || (Model.CurrentUser.RecievedLikes.Contains(id) && Model.CurrentUser.SentLikes.Contains(id));
+    }
+    public bool ChangeInformationCheck()
+    {
+        return HttpContext.Session.GetString("userId") == Model.CurrentUser.Id.ToString();
     }
     }
 

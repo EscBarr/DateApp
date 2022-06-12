@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages().AddViewLocalization().AddDataAnnotationsLocalization();
 builder.Services.AddScoped<ApplicationContext>();
 builder.Services.AddSingleton<IAuthService>(new AuthService(builder.Configuration));
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddHttpClient();
@@ -88,7 +89,10 @@ void SetupDatabase()
     ApplicationContext context = new ApplicationContext();
     // check and add roles
     AuthService auth = new AuthService(builder.Configuration);
-
+    if (!Directory.Exists("Backup"))
+    {
+        Directory.CreateDirectory("Backup");
+    }
     if (!context.Educations.Any())
     {
         context.Educations.Add(new EducationDegrees { Id = 1, Degree = "Основное общее" });
